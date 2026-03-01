@@ -199,6 +199,18 @@ export default {
         }
         this.createStylesheet(stylesheet);
       }
+
+      if (this.config.script) {
+        let additional_scripts = this.config.script;
+        if (!Array.isArray(this.config.script)) {
+          additional_scripts = [additional_scripts];
+        }
+        for (const file of additional_scripts) {
+          const script = document.createElement("script");
+          script.src = file;
+          document.head.appendChild(script);
+        }
+      }
     },
     getConfig: function (path = "assets/config.yml") {
       return fetch(path).then((response) => {
